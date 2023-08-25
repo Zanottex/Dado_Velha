@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <title>Jogo da sua mãe</title>
+    <script type="text/javascript">
+        let PlayerAtual = 1;
+        let winner = false;
+        $(document).ready(function()
+        {        
+        $("td").click(jogar);
+        $("#btnClean").click(limpar);
+        });
+
+      function limpar() {
+        $("td").text("");
+        $("#Winner").text("");
+        $("td").on("click", jogar);
+        winner = false;
+      }
+
+      function jogar() {
+        if (!winner) {
+          if (PlayerAtual == 1 && $(this).text() == "") {
+            $(this).text("X");
+            verificaVencedor();
+            PlayerAtual = 2;
+          } else if ($(this).text() == "") {
+            $(this).text("O");
+            verificaVencedor();
+            PlayerAtual = 1;
+          }
+        }
+      }
+      function verificaVencedor() {
+        if (
+          $("#1").text() != "" &&
+          $("#1").text() == $("#2").text() &&
+          $("#2").text() == $("#3").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#4").text() != "" &&
+          $("#4").text() == $("#5").text() &&
+          $("#5").text() == $("#6").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#7").text() != "" &&
+          $("#7").text() == $("#8").text() &&
+          $("#8").text() == $("#9").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#1").text() != "" &&
+          $("#1").text() == $("#4").text() &&
+          $("#4").text() == $("#7").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#2").text() != "" &&
+          $("#2").text() == $("#5").text() &&
+          $("#5").text() == $("#8").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#3").text() != "" &&
+          $("#3").text() == $("#6").text() &&
+          $("#6").text() == $("#9").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#1").text() != "" &&
+          $("#1").text() == $("#5").text() &&
+          $("#5").text() == $("#9").text()
+        ) {
+          winner = true;
+        } else if (
+          $("#7").text() != "" &&
+          $("#7").text() == $("#5").text() &&
+          $("#5").text() == $("#3").text()
+        ) {
+          winner = true;
+        }
+        if (winner) {
+          let vitorias = parseInt($("#jogador_" + PlayerAtual).text());
+          vitorias++;
+          $("#jogador_" + PlayerAtual).text(vitorias);
+        }
+      }    
+    </script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Jogo da Velha</h1>
+      <div class="row">
+        <div class="col-sm-12 mt-5 text-center">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td id="1"></td>
+                <td id="2"></td>
+                <td id="3"></td>
+              </tr>
+              <tr>
+                <td id="4"></td>
+                <td id="5"></td>
+                <td id="6"></td>
+              </tr>
+              <tr>
+                <td id="7"></td>
+                <td id="8"></td>
+                <td id="9"></td>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="col-sm-12 text-center">
+          <button class="btn btn-primary" onclick="limpar()">Limpar</button>
+        </div>
+        <div class="col-sm-12 mt-5 text-center">
+          <h4>Player 1: <span id="jogador_1">0</span></h4>
+          <h4>Player 2: <span id="jogador_2">0</span></h4>
+        </div>
+
+        <div class="col-sm-6 mt-5 text-center" hidden>
+          <table class="table table-bordered">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
